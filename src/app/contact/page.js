@@ -6,21 +6,20 @@ export default function ContactPage() {
       <div className={styles.headerSpacer}></div>
       <div className={styles.content}>
         <div className={styles.textContent}>
-          <h1>Get in <span className={styles.accent}>Touch</span></h1>
-          <p className={styles.subtitle}>Ready to elevate your engineering career? Have questions about our cohort dates or curriculum? Drop us a message.</p>
+          <h1 className={styles.title}>Let's talk about your <span className={styles.accent}>Career</span>.</h1>
+          <p className={styles.subtitle}>
+            Have questions about the cohort structure? Not sure if your profile is the right fit? 
+            Our admissions team is made up of engineers, not salespeople. We'll give it to you straight.
+          </p>
           
           <div className={styles.infoBlocks}>
             <div className={styles.infoBlock}>
-              <h3>Email Us</h3>
+              <h3>Admissions & Queries</h3>
               <p>admissions@parastructure.com</p>
             </div>
             <div className={styles.infoBlock}>
-              <h3>Call Us</h3>
-              <p>+91 (800) 123-4567</p>
-            </div>
-            <div className={styles.infoBlock}>
-              <h3>Headquarters</h3>
-              <p>Tech Park, Cyber Hub<br/>New Delhi, India</p>
+              <h3>Direct WhatsApp / Call</h3>
+              <p>+91 98765 43210</p>
             </div>
           </div>
         </div>
@@ -28,27 +27,36 @@ export default function ContactPage() {
         <div className={styles.formContainer}>
           <form className={styles.form}>
             <div className={styles.formGroup}>
-              <label htmlFor="name">Full Name</label>
-              <input type="text" id="name" placeholder="John Doe" />
+              <label htmlFor="name">Full Name *</label>
+              <input type="text" id="name" placeholder="Rahul Sharma" />
             </div>
+            
             <div className={styles.formGroup}>
-              <label htmlFor="email">Work Email</label>
-              <input type="email" id="email" placeholder="john@company.com" />
+              <label htmlFor="email">Email Address *</label>
+              <input type="email" id="email" placeholder="rahul@example.com" />
             </div>
+            
             <div className={styles.formGroup}>
-              <label htmlFor="course">Interested Course</label>
+              <label htmlFor="phone">Phone Number *</label>
+              <input type="tel" id="phone" placeholder="+91 98765 43210" />
+            </div>
+
+            <div className={styles.formGroup}>
+              <label htmlFor="course">Which program are you interested in?</label>
               <select id="course">
-                <option>RCC Bridge Design</option>
-                <option>Steel Structure & Engineering</option>
-                <option>PSC I Design & BrIM</option>
-                <option>Other Enquiry</option>
+                <option>RCC Bridge Design & BIM</option>
+                <option>Steel Bridge Design & Engineering</option>
+                <option>PSC Bridge Design & BrIM</option>
+                <option>I'm not sure yet</option>
               </select>
             </div>
+            
             <div className={styles.formGroup}>
-              <label htmlFor="message">Message</label>
-              <textarea id="message" rows="4" placeholder="Tell us about your background and goals..."></textarea>
+              <label htmlFor="message">Message (Optional)</label>
+              <textarea id="message" rows="4" placeholder="Tell us about your background or specific questions..."></textarea>
             </div>
-            <button type="button" className={`btnPrimary ${styles.submitBtn}`}>Send Message</button>
+            
+            <button type="button" className={`btnGold ${styles.submitBtn}`}>Send Request</button>
           </form>
         </div>
       </div>

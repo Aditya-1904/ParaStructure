@@ -1,32 +1,77 @@
 :root {
-  --bg-main: #f5f5f7;
-  --bg-surface: #ffffff;
-  --bg-surface-hover: #f0f0f0;
-  --accent-primary: #000000;
-  --accent-primary-hover: #333333;
-  --accent-secondary: #0070f3;
+  /* === Core Palette === */
+  --bg-main: #F8F6F2;
+  --bg-dark: #0E0E0E;
+  --bg-surface: #FFFFFF;
+  --bg-surface-2: #F0EDE8;
+  --bg-surface-hover: #ECEAE5;
+
+  /* === Accent System === */
+  --accent-gold: #C8A86B;
+  --accent-gold-light: #E2C99A;
+  --accent-gold-dark: #A88A4A;
+  --accent-blue: #2563EB;
+  --accent-blue-light: #3B82F6;
+
+  /* === Text === */
   --text-primary: #111111;
-  --text-secondary: #666666;
-  --card-glass: rgba(255, 255, 255, 0.8);
+  --text-secondary: #555555;
+  --text-tertiary: #888888;
+  --text-inverted: #FFFFFF;
+
+  /* === Borders & Glass === */
   --card-border: rgba(0, 0, 0, 0.08);
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-  
-  --spacing-1: 0.25rem;
-  --spacing-2: 0.5rem;
-  --spacing-3: 1rem;
-  --spacing-4: 1.5rem;
-  --spacing-5: 2rem;
-  --spacing-6: 3rem;
-  --spacing-8: 4rem;
-  --spacing-12: 6rem;
-  
-  --border-radius-sm: 4px;
-  --border-radius-md: 8px;
-  --border-radius-lg: 12px;
-  --border-radius-xl: 20px;
+  --card-border-hover: rgba(200, 168, 107, 0.5);
+  --card-glass: rgba(255, 255, 255, 0.75);
+  --card-glass-dark: rgba(14, 14, 14, 0.6);
+
+  /* === Typography === */
+  --font-heading: var(--font-outfit, 'Outfit', system-ui, sans-serif);
+  --font-body: var(--font-inter, 'Inter', system-ui, -apple-system, sans-serif);
+
+  /* === Spacing Scale === */
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-5: 1.25rem;
+  --s-6: 1.5rem;
+  --s-8: 2rem;
+  --s-10: 2.5rem;
+  --s-12: 3rem;
+  --s-16: 4rem;
+  --s-20: 5rem;
+  --s-24: 6rem;
+
+  /* === Layout === */
+  --max-width: 1200px;
+  --header-height: 72px;
+  --page-padding: 0 var(--s-8);
+
+  /* === Radii === */
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 16px;
+  --r-xl: 24px;
+  --r-full: 9999px;
+
+  /* === Shadows === */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.12);
+  --shadow-gold: 0 8px 32px rgba(200,168,107,0.25);
+  --shadow-hover: 0 20px 60px rgba(0,0,0,0.15);
+
+  /* === Transitions === */
+  --transition-fast: all 0.15s ease;
+  --transition-base: all 0.25s ease;
+  --transition-slow: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-* {
+/* ============================
+   RESET & BASE
+   ============================ */
+*, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -34,14 +79,19 @@
 
 html {
   scroll-behavior: smooth;
+  font-size: 16px;
 }
 
 body {
   background-color: var(--bg-main);
   color: var(--text-primary);
-  font-family: var(--font-sans);
-  line-height: 1.6;
+  font-family: var(--font-body);
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 a {
@@ -56,67 +106,137 @@ button {
   background: none;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  line-height: 1.2;
-  margin-bottom: var(--spacing-3);
-  font-weight: 700;
-}
-
-h1 {
-  font-size: clamp(2.5rem, 5vw, 4rem);
-}
-
-h2 {
-  font-size: clamp(2rem, 4vw, 3rem);
-}
-
-h3 {
-  font-size: clamp(1.5rem, 3vw, 2rem);
-}
-
-p {
-  margin-bottom: var(--spacing-3);
-}
-
-img {
+img, video {
   max-width: 100%;
   display: block;
 }
 
+ul, ol {
+  list-style: none;
+}
+
+/* ============================
+   TYPOGRAPHY
+   ============================ */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+h1 { font-size: clamp(2.5rem, 5.5vw, 4.5rem); }
+h2 { font-size: clamp(1.75rem, 3.5vw, 3rem); }
+h3 { font-size: clamp(1.25rem, 2.5vw, 1.75rem); }
+h4 { font-size: 1.125rem; }
+
+p {
+  color: var(--text-secondary);
+  line-height: 1.75;
+}
+
+/* ============================
+   GLOBAL BUTTON SYSTEM
+   ============================ */
 .btnPrimary {
-  background-color: var(--accent-primary);
-  color: #fff;
-  padding: var(--spacing-2) var(--spacing-5);
-  border-radius: var(--border-radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  background: var(--text-primary);
+  color: var(--text-inverted);
+  padding: var(--s-4) var(--s-8);
+  border-radius: var(--r-sm);
+  font-family: var(--font-heading);
   font-weight: 600;
   font-size: 1rem;
-  transition: all 0.3s ease;
-  display: inline-block;
-  text-align: center;
+  letter-spacing: 0.01em;
+  transition: var(--transition-base);
+  cursor: pointer;
+  border: 2px solid var(--text-primary);
+  white-space: nowrap;
 }
 
 .btnPrimary:hover {
-  background-color: var(--accent-primary-hover);
+  background: transparent;
+  color: var(--text-primary);
   transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btnGold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  background: var(--accent-gold);
+  color: #fff;
+  padding: var(--s-4) var(--s-8);
+  border-radius: var(--r-sm);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  transition: var(--transition-base);
+  cursor: pointer;
+  border: 2px solid var(--accent-gold);
+  white-space: nowrap;
+}
+
+.btnGold:hover {
+  background: var(--accent-gold-dark);
+  border-color: var(--accent-gold-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-gold);
 }
 
 .btnSecondary {
-  background: var(--card-glass);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  background: transparent;
   color: var(--text-primary);
-  border: 1px solid var(--card-border);
-  padding: var(--spacing-2) var(--spacing-5);
-  border-radius: var(--border-radius-md);
+  padding: var(--s-4) var(--s-8);
+  border-radius: var(--r-sm);
+  font-family: var(--font-heading);
   font-weight: 600;
   font-size: 1rem;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(5px);
-  display: inline-block;
-  text-align: center;
+  transition: var(--transition-base);
+  cursor: pointer;
+  border: 1.5px solid var(--card-border);
+  white-space: nowrap;
+  backdrop-filter: blur(8px);
 }
 
 .btnSecondary:hover {
-  background: rgba(0, 0, 0, 0.05);
-  border-color: rgba(0, 0, 0, 0.15);
+  border-color: var(--text-primary);
+  background: rgba(0,0,0,0.04);
   transform: translateY(-2px);
 }
 
+/* ============================
+   LAYOUT UTILITIES
+   ============================ */
+.pageWrapper {
+  max-width: var(--max-width);
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--page-padding);
+}
+
+.sectionPadding {
+  padding: var(--s-24) var(--s-8);
+}
+
+.goldText {
+  color: var(--accent-gold);
+}
+
+/* ============================
+   SCROLLBAR
+   ============================ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-main); }
+::-webkit-scrollbar-thumb { background: var(--accent-gold); border-radius: 3px; }

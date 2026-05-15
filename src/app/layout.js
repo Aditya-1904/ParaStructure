@@ -1,25 +1,46 @@
-import { Inter } from "next/font/google";
+import { Outfit, Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
+const outfit = Outfit({
+  subsets: ["latin"],
+  variable: "--font-outfit",
+  display: "swap",
+});
+
 const inter = Inter({
   subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
 });
 
 export const metadata = {
   title: "Parastructure | Master Bridge Engineering",
-  description: "Transform your career with specialized courses in RCC Bridge, Steel Bridge, and PSC I Design.",
+  description:
+    "India's most advanced cohort-based bridge engineering program. Learn RCC, Steel, and PSC Bridge design from industry leaders. Live sessions, real projects, and professional portfolio building.",
+  keywords: [
+    "bridge engineering course",
+    "structural engineering online",
+    "RCC bridge design",
+    "MIDAS Civil training",
+    "infrastructure engineering India",
+  ],
+  openGraph: {
+    title: "Parastructure | Master Bridge Engineering",
+    description:
+      "India's most advanced cohort-based bridge engineering program. Live sessions, real projects, portfolio building.",
+    siteName: "Parastructure",
+    type: "website",
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={inter.className} style={{display: 'flex', flexDirection: 'column', minHeight: '100vh'}}>
+    <html lang="en" className={`${outfit.variable} ${inter.variable}`}>
+      <body>
         <Header />
-        <main style={{flexGrow: 1}}>
-          {children}
-        </main>
+        <main style={{ flexGrow: 1 }}>{children}</main>
         <Footer />
       </body>
     </html>

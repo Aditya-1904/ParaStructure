@@ -1,0 +1,72 @@
+.wrapper {
+  text-align: center;
+}
+
+.label {
+  font-family: var(--font-heading);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  margin-bottom: var(--s-4);
+}
+
+.timer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  position: relative;
+}
+
+.unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.digit {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  color: var(--text-inverted);
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--r-md);
+  width: clamp(70px, 10vw, 90px);
+  text-align: center;
+  padding: var(--s-3) 0;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.unitLabel {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-top: var(--s-2);
+}
+
+.colon {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  color: var(--accent-gold);
+  margin: 0 var(--s-2);
+  line-height: 1;
+  padding: var(--s-3) 0;
+  align-self: flex-start;
+  /* Match digit block height for alignment */
+  display: flex;
+  align-items: center;
+  padding-bottom: 20px; /* offset for the unit label below */
+}
+
+@media (max-width: 480px) {
+  .colon { margin: 0 var(--s-1); font-size: 1.75rem; }
+  .digit { width: 56px !important; font-size: 1.75rem !important; }
+}

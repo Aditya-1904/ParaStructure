@@ -1,174 +1,272 @@
-import styles from "./page.module.css";
+import Image from 'next/image';
 import Link from 'next/link';
+import CountdownTimer from '@/components/CountdownTimer';
+import Testimonials from '@/components/Testimonials';
+import FAQ from '@/components/FAQ';
+import { getAllCourses, TOOLS } from '@/data/courses';
+import { formatPrice } from '@/config/payment';
+import styles from './page.module.css';
 
 export default function Home() {
+  const courses = getAllCourses();
+
   return (
-    <div className={styles.container}>
-      {/* Hero Section */}
+    <div className={styles.page}>
+
+      {/* ================================================
+          HERO SECTION
+          ================================================ */}
       <section className={styles.hero}>
-        <div className={styles.heroGlow1}></div>
-        <div className={styles.heroGlow2}></div>
-        <img src="/hero.png" alt="Modern Bridge Engineering" className={styles.heroBg} />
-        <div className={styles.heroOverlay}></div>
+        <Image
+          src="/hero.png"
+          alt="Modern bridge infrastructure — Parastructure"
+          fill
+          priority
+          style={{ objectFit: 'cover' }}
+          sizes="100vw"
+          className={styles.heroBg}
+        />
+        <div className={styles.heroOverlay} />
+
         <div className={styles.heroContent}>
-          <span className={styles.heroSubtitle}>Building the Future</span>
-          <h1 className={styles.heroTitle}>Master the Art of <br/>Bridge Engineering</h1>
+          <span className={styles.eyebrow}>Live Classes · Real Projects · Master the Tools</span>
+          <h1 className={styles.heroTitle}>
+            The Bridge Engineer{' '}
+            <span className={styles.heroTitleAccent}>India Needs</span>
+            {' '}Is You.
+          </h1>
           <p className={styles.heroDesc}>
-            Join India's most advanced cohort-based program. Learn RCC, Steel, and PSC Bridge design from industry leaders and secure top-tier placements.
+            Stop watching tutorials. Join a live cohort of 40 serious engineers,
+            work on real mega-project data, and walk out with the practical design skills
+            demanded by L&T, AECOM, and top NHAI consultancies.
           </p>
           <div className={styles.heroButtons}>
-            <Link href="/courses/rcc" className="btnPrimary">Explore Programs</Link>
-            <Link href="/contact" className="btnSecondary">Download Syllabus</Link>
+            <Link href="/#programs" className="btnGold">See All Programs</Link>
+            <Link href="/contact" className="btnSecondary">Get the Syllabus</Link>
+          </div>
+
+          <div className={styles.heroSocProof}>
+            <div className={styles.heroStat}>
+              <span className={styles.heroStatValue}>1,000+</span>
+              <span className={styles.heroStatLabel}>Global Alumni</span>
+            </div>
+            <div className={styles.statDivider}/>
+            <div className={styles.heroStat}>
+              <span className={styles.heroStatValue}>4.8 ★</span>
+              <span className={styles.heroStatLabel}>Google Reviews</span>
+            </div>
+            <div className={styles.statDivider}/>
+            <div className={styles.heroStat}>
+              <span className={styles.heroStatValue}>200+</span>
+              <span className={styles.heroStatLabel}>Real Projects Modeled</span>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className={styles.statsBar}>
-        <div className={styles.statItem}>
-          <div className={styles.statValue}>1000+</div>
-          <div className={styles.statLabel}>Learners Placed</div>
-        </div>
-        <div className={styles.statItem}>
-          <div className={styles.statValue}>83%</div>
-          <div className={styles.statLabel}>Career Success Rate</div>
-        </div>
-        <div className={styles.statItem}>
-          <div className={styles.statValue}>50%</div>
-          <div className={styles.statLabel}>Average Salary Hike</div>
-        </div>
-        <div className={styles.statItem}>
-          <div className={styles.statValue}>4.8/5</div>
-          <div className={styles.statLabel}>Google Reviews</div>
+      {/* ================================================
+          COHORT COUNTDOWN BANNER
+          ================================================ */}
+      <section className={styles.countdownSection}>
+        <div className={styles.countdownInner}>
+          <CountdownTimer />
+          <div className={styles.countdownCta}>
+            <p className={styles.countdownText}>
+              June 2026 Cohort · Only 40 Seats · Applications Close Soon
+            </p>
+            <Link href="/contact" className="btnGold">Reserve Your Seat →</Link>
+          </div>
         </div>
       </section>
 
-      {/* Courses Section */}
-      <section id="courses" className={styles.coursesSection}>
+      {/* ================================================
+          STATS BAR
+          ================================================ */}
+      <section className={styles.statsBar}>
+        {[
+          { value: '1,000+', label: 'Global Alumni' },
+          { value: '200+', label: 'Real Projects Modeled' },
+          { value: '160+', label: 'Hours of Training' },
+          { value: '4.8 / 5', label: 'Google Rating' },
+          { value: '≤ 40', label: 'Students Per Cohort' },
+        ].map((s, i) => (
+          <div key={i} className={styles.statItem}>
+            <div className={styles.statValue}>{s.value}</div>
+            <div className={styles.statLabel}>{s.label}</div>
+          </div>
+        ))}
+      </section>
+
+      {/* ================================================
+          PROGRAMS SECTION
+          ================================================ */}
+      <section id="programs" className={styles.programsSection}>
         <div className={styles.sectionHeader}>
-          <h2 className={styles.sectionTitle}>Our Flagship Courses</h2>
+          <span className={styles.sectionEyebrow}>What We Teach</span>
+          <h2 className={styles.sectionTitle}>Three Programs.<br/>One Clear Goal — Engineering Mastery.</h2>
           <p className={styles.sectionSubtitle}>
-            Specialized curriculum designed to transform your theoretical knowledge into practical, industry-ready skills.
+            Each program is built around one niche, taught live by engineers who are actively working
+            on the projects you aspire to work on.
           </p>
         </div>
-        
+
         <div className={styles.coursesGrid}>
-          {/* Course 1 */}
-          <div className={styles.courseCard}>
-            <div className={styles.courseBadge}>Most Popular</div>
-            <div className={styles.courseImageContainer}>
-              <div className={styles.shape1}></div>
-              <div className={styles.shape2}></div>
-              <div style={{position: 'absolute', bottom: '20px', left: '20px'}}>
-                <h3 style={{margin:0, fontSize:'2rem'}}>RCC<br/>Bridge</h3>
-              </div>
-            </div>
-            <div className={styles.courseContent}>
-              <h3 className={styles.courseTitle}>RCC Structure & BIM Technology</h3>
-              <p className={styles.courseDesc}>
-                Comprehensive program focusing on Analysis, Design & BIM Technology for Reinforced Concrete Construction bridges.
-              </p>
-              <div className={styles.courseMeta}>
-                <div className={styles.metaItem}>
-                  <span className={styles.metaLabel}>Duration</span>
-                  <span className={styles.metaValue}>8 Months</span>
-                </div>
-                <div className={styles.metaItem}>
-                  <span className={styles.metaLabel}>Hours</span>
-                  <span className={styles.metaValue}>160+ Hours</span>
-                </div>
-              </div>
-              <Link href="/courses/rcc" className="btnSecondary" style={{display:'block'}}>View Details</Link>
-            </div>
-          </div>
+          {courses.map((course) => (
+            <div key={course.id} className={styles.courseCard}>
+              {/* Badge */}
+              <span className={`${styles.courseBadge} ${styles[`badge_${course.badgeType}`]}`}>
+                {course.badge}
+              </span>
 
-          {/* Course 2 */}
-          <div className={styles.courseCard}>
-            <div className={styles.courseBadgePopular}>Flagship</div>
-            <div className={styles.courseImageContainer}>
-              <div className={styles.shape3}></div>
-              <div style={{position: 'absolute', bottom: '20px', left: '20px'}}>
-                <h3 style={{margin:0, fontSize:'2rem'}}>STEEL<br/>Bridge</h3>
-              </div>
-            </div>
-            <div className={styles.courseContent}>
-              <h3 className={styles.courseTitle}>Steel Structure & Engineering</h3>
-              <p className={styles.courseDesc}>
-                Master advanced steel structure analysis, computational design, and project management for modern infrastructure.
-              </p>
-              <div className={styles.courseMeta}>
-                <div className={styles.metaItem}>
-                  <span className={styles.metaLabel}>Duration</span>
-                  <span className={styles.metaValue}>8 Months</span>
-                </div>
-                <div className={styles.metaItem}>
-                  <span className={styles.metaLabel}>Hours</span>
-                  <span className={styles.metaValue}>120+ Hours</span>
-                </div>
-              </div>
-              <Link href="/courses/steel" className="btnSecondary" style={{display:'block'}}>View Details</Link>
-            </div>
-          </div>
+              {/* Color bar */}
+              <div className={styles.courseColorBar} style={{ background: course.color }} />
 
-          {/* Course 3 */}
-          <div className={styles.courseCard}>
-            <div className={styles.courseImageContainer}>
-               <div className={styles.shape1}></div>
-               <div className={styles.shape3}></div>
-              <div style={{position: 'absolute', bottom: '20px', left: '20px'}}>
-                <h3 style={{margin:0, fontSize:'2rem'}}>PSC I<br/>Design</h3>
+              {/* Visual image */}
+              <div className={styles.courseVisual} style={{ '--course-color': course.color }}>
+                {course.image && (
+                  <Image src={course.image} alt={course.title} fill style={{ objectFit: 'cover' }} />
+                )}
+                <div className={styles.courseVisualGlow} />
+              </div>
+
+              <div className={styles.courseBody}>
+                <h3 className={styles.courseTitle}>{course.title}</h3>
+                <p className={styles.courseDesc}>{course.tagline}</p>
+
+                <div className={styles.courseMeta}>
+                  <span className={styles.metaBadge}>⏱ {course.duration}</span>
+                  <span className={styles.metaBadge}>🎥 {course.sessions}</span>
+                  <span className={styles.metaBadge}>📡 {course.mode}</span>
+                </div>
+
+                <div className={styles.courseFooter}>
+                  <div>
+                    <div className={styles.coursePrice}>{formatPrice(course.price)}</div>
+                    <div className={styles.courseEmi}>
+                      or {formatPrice(Math.ceil(course.price / course.emiMonths))}/mo × {course.emiMonths}
+                    </div>
+                  </div>
+                  <Link href={`/courses/${course.id}`} className="btnPrimary">
+                    View Program
+                  </Link>
+                </div>
               </div>
             </div>
-            <div className={styles.courseContent}>
-              <h3 className={styles.courseTitle}>PSC Bridge Design & BrIM</h3>
-              <p className={styles.courseDesc}>
-                Prestressed Concrete bridge design, computational modelling, and BrIM technology for tall structures.
-              </p>
-              <div className={styles.courseMeta}>
-                <div className={styles.metaItem}>
-                  <span className={styles.metaLabel}>Duration</span>
-                  <span className={styles.metaValue}>6 Months</span>
-                </div>
-                <div className={styles.metaItem}>
-                  <span className={styles.metaLabel}>Hours</span>
-                  <span className={styles.metaValue}>140+ Hours</span>
-                </div>
-              </div>
-              <Link href="/courses/psc" className="btnSecondary" style={{display:'block'}}>View Details</Link>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
-      {/* Features Section */}
-      <section id="about" className={styles.featuresSection}>
+      {/* ================================================
+          HOW IT WORKS
+          ================================================ */}
+      <section id="about" className={styles.howSection}>
         <div className={styles.sectionHeader}>
-          <h2 className={styles.sectionTitle}>Why Choose Parastructure?</h2>
+          <span className={styles.sectionEyebrow}>The Process</span>
+          <h2 className={styles.sectionTitle}>Not a Course. A Career Launchpad.</h2>
+          <p className={styles.sectionSubtitle}>
+            We designed this end-to-end — from day one of your application to the day you finish your capstone project.
+          </p>
         </div>
-        <div className={styles.featuresGrid}>
-          <div className={styles.featureCard}>
-            <div className={styles.featureIconPrimary}>
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+
+        <div className={styles.stepsGrid}>
+          {[
+            {
+              step: '01',
+              title: 'Apply in 5 Minutes',
+              desc: 'No entrance test. No long forms. Just tell us who you are and where you want to go. Our team calls every applicant personally — because we take your career as seriously as you do.',
+            },
+            {
+              step: '02',
+              title: 'Learn Live, Not Alone',
+              desc: 'Twice a week, you\'re in a live class with 39 other engineers who are just as serious as you. Ask questions, debate design decisions, and learn from what your peers get wrong — not just what your instructor says.',
+            },
+            {
+              step: '03',
+              title: 'Work on the Real Thing',
+              desc: 'Forget dummy datasets. You\'ll analyse actual load cases from NHAI projects, model real bridge geometries in MIDAS Civil, and submit deliverables that practicing engineers review with the same standard as client submissions.',
+            },
+            {
+              step: '04',
+              title: 'Build a Master Portfolio',
+              desc: 'Leave the program with professional-grade design models, calculation reports, and BIM deliverables. Our alumni don\'t just put \'MIDAS Civil\' on their resume — they bring their actual project models to interviews.',
+            },
+          ].map(({ step, title, desc }) => (
+            <div key={step} className={styles.stepCard}>
+              <div className={styles.stepNumber}>{step}</div>
+              <h3 className={styles.stepTitle}>{title}</h3>
+              <p className={styles.stepDesc}>{desc}</p>
             </div>
-            <h3 className={styles.featureTitle}>Industry Projects</h3>
-            <p className={styles.featureDesc}>Gain job-ready skills through real-world mega-projects developed with top tech companies.</p>
-          </div>
-          <div className={styles.featureCard}>
-            <div className={styles.featureIcon}>
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m18 16 4-4-4-4M6 8 2 12l4 4M14.5 4l-5 16"/></svg>
+          ))}
+        </div>
+      </section>
+
+      {/* ================================================
+          TESTIMONIALS
+          ================================================ */}
+      <section id="testimonials" className={styles.testimonialsSection}>
+        <div className={styles.sectionHeader}>
+          <span className={styles.sectionEyebrow}>In Their Own Words</span>
+          <h2 className={styles.sectionTitle}>Engineers Who Took the<br/>Leap — and Landed.</h2>
+          <p className={styles.sectionSubtitle}>
+            We don't cherry-pick. These are unsolicited reviews from engineers who went through the cohort.
+          </p>
+        </div>
+        <Testimonials />
+      </section>
+
+      {/* ================================================
+          TOOLS & TECH
+          ================================================ */}
+      <section className={styles.toolsSection}>
+        <div className={styles.sectionHeader}>
+          <span className={styles.sectionEyebrow}>The Toolkit</span>
+          <h2 className={styles.sectionTitle}>Software That Gets You Hired.</h2>
+          <p className={styles.sectionSubtitle}>
+            Every tool we teach is heavily utilized by top tier engineering firms and consultancies globally.
+            We don't waste your time on outdated software.
+          </p>
+        </div>
+        <div className={styles.toolsGrid}>
+          {TOOLS.map((tool) => (
+            <div key={tool.name} className={styles.toolChip}>
+              <span className={styles.toolIcon}>{tool.icon}</span>
+              <span className={styles.toolName}>{tool.name}</span>
             </div>
-            <h3 className={styles.featureTitle}>Latest Technology</h3>
-            <p className={styles.featureDesc}>Learn tools like MIDAS, STAAD, and advanced Computational Design & BIM.</p>
-          </div>
-          <div className={styles.featureCard}>
-            <div className={styles.featureIcon}>
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            </div>
-            <h3 className={styles.featureTitle}>Expert Reference</h3>
-            <p className={styles.featureDesc}>Get personalized 1-on-1 feedback from industry professionals who build real bridges.</p>
+          ))}
+        </div>
+      </section>
+
+      {/* ================================================
+          FAQ
+          ================================================ */}
+      <section className={styles.faqSection}>
+        <div className={styles.sectionHeader}>
+          <span className={styles.sectionEyebrow}>Got Questions?</span>
+          <h2 className={styles.sectionTitle}>Let's Clear the Air.</h2>
+          <p className={styles.sectionSubtitle}>
+            If something isn't answered here, call us. We pick up.
+          </p>
+        </div>
+        <FAQ />
+      </section>
+
+      {/* ================================================
+          FINAL CTA BAND
+          ================================================ */}
+      <section className={styles.ctaBand}>
+        <div className={styles.ctaBandInner}>
+          <h2 className={styles.ctaTitle}>One year from now,<br/>where will you be?</h2>
+          <p className={styles.ctaDesc}>
+            The June cohort has 40 seats and a waitlist that grows every week.
+            The application takes 5 minutes. The decision could change your entire career.
+          </p>
+          <div className={styles.ctaButtons}>
+            <Link href="/contact" className="btnGold">Apply Now — Free & Fast</Link>
+            <Link href="/contact" className={styles.ctaSecondaryLink}>Talk to the Team →</Link>
           </div>
         </div>
       </section>
+
     </div>
   );
 }

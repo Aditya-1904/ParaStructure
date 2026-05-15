@@ -1,84 +1,208 @@
-import styles from './course.module.css';
 import Link from 'next/link';
+import Image from 'next/image';
+import Testimonials from '@/components/Testimonials';
+import { getCourse } from '@/data/courses';
+import { formatPrice } from '@/config/payment';
+import { notFound } from 'next/navigation';
+import styles from './course.module.css';
 
-// Helper to generate dynamic course data
-const getCourseData = (id) => {
-  const courses = {
-    rcc: {
-      title: "RCC Structure & BIM Technology",
-      subtitle: "Comprehensive program focusing on Analysis, Design & BIM Technology for Reinforced Concrete Construction bridges.",
-      duration: "8 Months",
-      hours: "160+ Hours",
-      modules: ["Structural Analysis Fundamentals", "RCC Design Codes (IRC/AASHTO)", "BIM Modeling with Revit", "Capstone Project"],
-      price: "$1,499"
-    },
-    steel: {
-      title: "Steel Structure & Engineering",
-      subtitle: "Master advanced steel structure analysis, computational design, and project management for modern infrastructure.",
-      duration: "8 Months",
-      hours: "120+ Hours",
-      modules: ["Steel Property & Behavior", "Connection Design", "MIDAS Civil Analysis", "Project Management Integration"],
-      price: "$1,699"
-    },
-    psc: {
-      title: "PSC Bridge Design & BrIM",
-      subtitle: "Prestressed Concrete bridge design, computational modelling, and BrIM technology for tall structures.",
-      duration: "6 Months",
-      hours: "140+ Hours",
-      modules: ["Prestressing Concepts", "Loss Calculations", "Parametric Design (Dynamo)", "BrIM Workflows"],
-      price: "$1,899"
-    }
+export async function generateMetadata({ params }) {
+  const { id } = await params;
+  const course = getCourse(id);
+  if (!course) return {};
+  return {
+    title: `${course.title} | Parastructure`,
+    description: course.description,
   };
-  
-  return courses[id] || courses['rcc']; // Default to rcc if not found
-};
+}
 
 export default async function CoursePage({ params }) {
-  // Await the params object in Next.js 15
-  const parameters = await params;
-  const course = getCourseData(parameters.id);
-  
+  const { id } = await params;
+  const course = getCourse(id);
+  if (!course) notFound();
+
+  const emiAmount = Math.ceil(course.price / course.emiMonths);
+
   return (
-    <div className={styles.courseContainer}>
-      <div className={styles.headerSpacer}></div>
-      
-      <div className={styles.heroBanner}>
-        <div className={styles.glowBg}></div>
-        <h1>{course.title}</h1>
-        <p className={styles.heroDesc}>{course.subtitle}</p>
-        
-        <div className={styles.metaRow}>
-          <div className={styles.metaBadge}>{course.duration}</div>
-          <div className={styles.metaBadge}>{course.hours}</div>
-          <div className={styles.metaBadge}>Cohort Starting Soon</div>
-        </div>
-      </div>
-      
-      <div className={styles.contentGrid}>
-        <div className={styles.mainContent}>
-          <h2>Course Overview</h2>
-          <p>This master certification brings together theoretical knowledge and practical application. You will be working on industry-guided projects, getting reviews from experts who design global mega-structures.</p>
-          
-          <h3 style={{marginTop: '2rem'}}>Curriculum Modules</h3>
-          <ul className={styles.moduleList}>
-            {course.modules.map((mod, idx) => (
-              <li key={idx} className={styles.moduleItem}>
-                <span className={styles.moduleNumber}>0{idx+1}</span>
-                {mod}
-              </li>
-            ))}
-          </ul>
-        </div>
-        
-        <div className={styles.sidebar}>
-          <div className={styles.pricingCard}>
-            <h3>Enrollment</h3>
-            <div className={styles.price}>{course.price}</div>
-            <p className={styles.priceSub}>One-time payment or EMI options available.</p>
-            <Link href="/contact" className={`btnPrimary ${styles.enrollBtn}`}>Apply for Next Cohort</Link>
-            <p className={styles.guarantee}>Includes Placement Support & 1-on-1 Mentorship</p>
+    <div className={styles.page}>
+
+      {/* ---- Hero Banner ---- */}
+      <div className={styles.heroBanner} style={{ '--course-color': course.color }}>
+        {course.image && (
+          <Image 
+            src={course.image} 
+            alt={course.title} 
+            fill 
+            className={styles.heroBannerImage}
+            priority
+          />
+        )}
+        <div className={styles.heroBannerOverlay} />
+        <div className={styles.heroBannerInner}>
+          <Link href="/#programs" className={styles.backLink}>
+            ← All Programs
+          </Link>
+          <div className={styles.heroBadges}>
+            <span className={styles.levelBadge}>{course.level}</span>
+            <span className={styles.modeBadge}>📡 {course.mode}</span>
+            <span className={styles.langBadge}>🗣 {course.language}</span>
+          </div>
+          <h1 className={styles.heroTitle}>{course.title}</h1>
+          <p className={styles.heroDesc}>{course.description}</p>
+          <div className={styles.heroStats}>
+            <div className={styles.heroStat}><strong>{course.duration}</strong><span>Duration</span></div>
+            <div className={styles.statDivider}/>
+            <div className={styles.heroStat}><strong>{course.hours}</strong><span>Total Hours</span></div>
+            <div className={styles.statDivider}/>
+            <div className={styles.heroStat}><strong>{course.sessions}</strong><span>Live Sessions</span></div>
           </div>
         </div>
+      </div>
+
+      {/* ---- Content Grid ---- */}
+      <div className={styles.contentLayout}>
+        <div className={styles.mainContent}>
+
+          {/* Curriculum */}
+          <section className={styles.section}>
+            <h2 className={styles.sectionTitle}>Curriculum</h2>
+            <div className={styles.modules}>
+              {course.modules.map((mod, i) => (
+                <details key={i} className={styles.moduleItem}>
+                  <summary className={styles.moduleSummary}>
+                    <span className={styles.moduleNum}>{String(i + 1).padStart(2, '0')}</span>
+                    <span className={styles.moduleTitle}>{mod.title}</span>
+                    <span className={styles.moduleToggle}>
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                    </span>
+                  </summary>
+                  <ul className={styles.topicList}>
+                    {mod.topics.map((t, j) => (
+                      <li key={j} className={styles.topicItem}>
+                        <span className={styles.topicDot}/>
+                        {t}
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              ))}
+            </div>
+          </section>
+
+          {/* Learning Outcomes */}
+          <section className={styles.section}>
+            <h2 className={styles.sectionTitle}>What You'll Achieve</h2>
+            <div className={styles.outcomesGrid}>
+              {course.outcomes.map((o, i) => (
+                <div key={i} className={styles.outcomeCard}>
+                  <span className={styles.outcomeCheck}>✓</span>
+                  <span>{o}</span>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Who is this for */}
+          <section className={styles.section}>
+            <h2 className={styles.sectionTitle}>Who Is This For?</h2>
+            <ul className={styles.audienceList}>
+              {course.targetAudience.map((a, i) => (
+                <li key={i} className={styles.audienceItem}>
+                  <span className={styles.audienceDot} style={{ background: course.color }}/>
+                  {a}
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          {/* Tools */}
+          <section className={styles.section}>
+            <h2 className={styles.sectionTitle}>Tools You'll Master</h2>
+            <div className={styles.toolsRow}>
+              {course.tools.map((t) => (
+                <span key={t} className={styles.toolChip}>{t}</span>
+              ))}
+            </div>
+          </section>
+
+          {/* Testimonials */}
+          <section className={styles.section}>
+            <h2 className={styles.sectionTitle}>What Our Students Say</h2>
+            <Testimonials items={course.testimonials} />
+          </section>
+
+        </div>
+
+        {/* ---- Sticky Sidebar ---- */}
+        <aside className={styles.sidebar}>
+          <div className={styles.pricingCard}>
+            <div className={styles.pricingTop} style={{ '--course-color': course.color }}>
+              <div className={styles.pricingLabel}>Program Fee</div>
+              <div className={styles.price}>{formatPrice(course.price)}</div>
+              <div className={styles.emiLine}>
+                or <strong>{formatPrice(emiAmount)}/mo</strong> × {course.emiMonths} months
+              </div>
+            </div>
+
+            <ul className={styles.includesList}>
+              {[
+                `${course.sessions} live sessions`,
+                `${course.hours} of content`,
+                'Recordings for 1 year',
+                'Real project data & reviews',
+                '1-on-1 mentorship',
+                'Portfolio building',
+                'Community access',
+                '7-day money-back guarantee',
+              ].map((item) => (
+                <li key={item} className={styles.includesItem}>
+                  <span className={styles.includesCheck}>✓</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+
+            <div className={styles.pricingCardButtons}>
+              <Link
+                href={`/checkout/${course.id}`}
+                className="btnGold"
+                style={{ display: 'block', width: '100%', textAlign: 'center' }}
+              >
+                Enroll Now — {formatPrice(course.price)}
+              </Link>
+              <Link
+                href="/contact"
+                className="btnSecondary"
+                style={{ display: 'block', width: '100%', textAlign: 'center' }}
+              >
+                Ask a Question
+              </Link>
+            </div>
+
+            <p className={styles.guarantee}>
+              🔒 Secure payment via Razorpay · UPI, Cards, Net Banking, EMI
+            </p>
+            <p className={styles.guarantee}>
+              ✅ 7-day full refund if not satisfied
+            </p>
+          </div>
+
+          {/* Cohort info */}
+          <div className={styles.cohortCard}>
+            <div className={styles.cohortRow}>
+              <span>📅 Next Cohort</span>
+              <strong>June 15, 2026</strong>
+            </div>
+            <div className={styles.cohortRow}>
+              <span>👥 Batch Size</span>
+              <strong>Max 40 Students</strong>
+            </div>
+            <div className={styles.cohortRow}>
+              <span>🕐 Class Time</span>
+              <strong>Sat & Sun, 10–12 AM</strong>
+            </div>
+          </div>
+        </aside>
       </div>
     </div>
   );
