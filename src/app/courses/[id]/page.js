@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import Testimonials from '@/components/Testimonials';
+import SyllabusButton from '@/components/SyllabusButton';
 import { getCourse } from '@/data/courses';
 import { formatPrice } from '@/config/payment';
 import { notFound } from 'next/navigation';
@@ -88,6 +89,13 @@ export default async function CoursePage({ params }) {
               ))}
             </div>
           </section>
+
+          {/* Detailed Syllabus Drawer Trigger */}
+          <SyllabusButton 
+            detailedSyllabus={course.detailedSyllabus} 
+            color={course.color} 
+            title={course.title} 
+          />
 
           {/* Learning Outcomes */}
           <section className={styles.section}>

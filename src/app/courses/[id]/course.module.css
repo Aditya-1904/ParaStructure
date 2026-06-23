@@ -457,6 +457,132 @@
 }
 
 /* ============================
+   DETAILED SYLLABUS (TIMELINE & MECHANICS)
+   ============================ */
+
+.sectionDesc {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: var(--s-8);
+  max-width: 700px;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-6);
+  position: relative;
+  padding-left: var(--s-6);
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  bottom: 10px;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 2px;
+}
+
+.timelineItem {
+  display: flex;
+  gap: var(--s-5);
+  position: relative;
+}
+
+.timelineNum {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1rem;
+  background: var(--bg-main);
+  padding-top: 2px;
+  position: relative;
+  z-index: 2;
+  margin-left: -var(--s-6);
+  width: 24px;
+  text-align: center;
+}
+
+.timelineContent {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: var(--s-4) var(--s-5);
+  border-radius: var(--r-md);
+}
+
+.timelineTitle {
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  color: var(--text-primary);
+  margin-bottom: var(--s-2);
+}
+
+.timelineDesc {
+  color: var(--text-secondary);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+.mechanicsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-5);
+  margin-bottom: var(--s-8);
+}
+
+.mechanicCard {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: var(--s-6);
+  border-radius: var(--r-lg);
+}
+
+.mechanicTitle {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  color: var(--text-primary);
+  margin-bottom: var(--s-3);
+}
+
+.mechanicDesc {
+  color: var(--text-secondary);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+.benefitsTitle {
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  color: var(--text-primary);
+  margin-bottom: var(--s-4);
+}
+
+.benefitsList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  padding: 0;
+}
+
+.benefitItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-3);
+  color: var(--text-secondary);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.benefitCheck {
+  font-weight: 700;
+  margin-top: 1px;
+}
+
+/* ============================
    RESPONSIVE
    ============================ */
 @media (max-width: 1100px) {

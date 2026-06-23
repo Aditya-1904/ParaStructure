@@ -331,13 +331,66 @@ const courses = {
       'Work on NHAI, expressway, and metro-rail bridge projects',
     ],
     targetAudience: [
-      'Engineers who have completed the RCC Bridge program',
-      'Structural engineers with 2+ years of design experience',
+      'Diploma, Graduate & Postgraduate Students looking to strengthen their CV and improve internship and career prospects',
+      'Site Engineers transitioning into design office roles',
       'Professionals targeting NHAI and state highway projects',
       'Engineers aiming for senior/lead design roles',
     ],
     tools: ['MIDAS Civil', 'Autodesk Revit', 'Dynamo', 'AutoCAD'],
     testimonials: [TESTIMONIALS[1], TESTIMONIALS[2]],
+    detailedSyllabus: {
+      designProcess: [
+        {
+          title: 'Review & Understand',
+          desc: 'Study GAD (General Arrangement Drawing), Design basis report, and relevant codes.'
+        },
+        {
+          title: 'Loads & Load Combinations',
+          desc: 'Determine loads and prepare load combinations.'
+        },
+        {
+          title: 'Modeling & Analysis',
+          desc: 'Build structural model and obtain design forces.'
+        },
+        {
+          title: 'Section & Stress Calculations',
+          desc: 'Compute section properties and check stresses under service loads. Variables: b_f (top flange width), b_w (web width), h (total depth).'
+        },
+        {
+          title: 'Tendon Design',
+          desc: 'Design prestressing tendons, profile and calculate losses.'
+        },
+        {
+          title: 'SLS & ULS Checks',
+          desc: 'Verify serviceability (SLS) and ultimate limit state (ULS) requirements.'
+        },
+        {
+          title: 'Bearing Design',
+          desc: 'Design bearings and check bearing stresses.'
+        },
+        {
+          title: 'Drawings & Final Check',
+          desc: 'Prepare drawings and review final design. Output: PSC I Girder is safe, serviceable and constructible.'
+        }
+      ],
+      mechanicsComparison: {
+        conventional: {
+          title: 'Non-prestressed (Conventional)',
+          desc: 'A straight beam deflects downward under an applied vertical load, resulting in structural cracking along the bottom tension zone.'
+        },
+        prestressed: {
+          title: 'Prestressed',
+          desc: 'An unloaded beam is cambered upward due to internal prestressing forces. When vertical load is applied, the beam counteracts the deflection and straightens out without cracking.'
+        },
+        benefits: [
+          'Longer span capability than conventional RCC bridges',
+          'Reduced cracks and improved durability',
+          'Slimmer and lighter girder sections',
+          'Faster construction with precast technology',
+          'Widely used in highways, metros, and flyovers'
+        ]
+      }
+    }
   },
 };
 
