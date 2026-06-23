@@ -1,6 +1,7 @@
 import { Outfit, Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
+import Chatbot from "@/components/Chatbot";
 import Footer from "@/components/Footer";
 
 const outfit = Outfit({
@@ -41,6 +42,7 @@ export default function RootLayout({ children }) {
       <body>
         <Header />
         <main style={{ flexGrow: 1 }}>{children}</main>
+        <Chatbot />
         <Footer />
       </body>
     </html>
